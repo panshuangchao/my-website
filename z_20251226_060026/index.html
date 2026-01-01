@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>武易专区选择</title>
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="武易传奇下载站，提供武易复古区与武易六合区客户端，支持2003武易与2005武易版本，PC/安卓/iOS下载与安装说明。">
+  <meta name="keywords" content="武易传奇,武易,2003武易,2005武易,武易复古区,武易六合区">
+  <meta property="og:title" content="武易传奇下载 | 武易复古区 | 武易六合区">
+  <meta property="og:description" content="武易传奇下载站，提供武易复古区与武易六合区客户端，支持2003武易与2005武易版本，PC/安卓/iOS下载与安装说明。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://example.com/og-image.png">
+  <meta property="og:url" content="https://example.com/">
+  <link rel="canonical" href="https://example.com/">
+  <link rel="alternate" hrefLang="zh-CN" href="https://example.com/">
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background: linear-gradient(135deg, #0ea5e9 0%, #0f172a 60%);
+      color: #fff;
+    }
+    .container { width: 100%; max-width: 980px; padding: 28px; }
+    .header { text-align: center; margin-bottom: 24px; }
+    .title { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: 1px; }
+    .subtitle { font-size: clamp(16px, 3vw, 18px); opacity: 0.9; }
+    .zones { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 800px) { .zones { grid-template-columns: repeat(2, 1fr); } }
+    .zone {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+    }
+    .zone-toggle {
+      width: 100%;
+      display: block;
+      text-align: center;
+      padding: 18px 16px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      background: #22c55e;
+      border: none;
+      cursor: pointer;
+    }
+    .zone-toggle:hover { filter: brightness(1.05); }
+    .zone-content { padding: 16px; }
+    .downloads { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+    @media (min-width: 560px) { .downloads { grid-template-columns: repeat(3, 1fr); } }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #fbbf24;
+    }
+    .btn.android { background: #34d399; }
+    .btn.ios { background: #60a5fa; }
+    .contact { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 8px; }
+    @media (min-width: 640px) { .contact { grid-template-columns: 1fr 1fr; } }
+    .contact-item { background: rgba(15,23,42,0.35); border-radius: 12px; padding: 12px; }
+    .label { font-weight: 700; margin-bottom: 8px; }
+    .qr {
+      width: 180px; height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px dashed rgba(255,255,255,0.6);
+      border-radius: 12px; margin-bottom: 8px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+    }
+    .qr img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+    .qq-link {
+      display: inline-block;
+      color: #fff;
+      background: transparent;
+      text-decoration: underline;
+    }
+    .footer { text-align: center; margin-top: 20px; opacity: 0.8; font-size: 14px; }
+    .seo { text-align: center; margin: 8px 0 20px; font-size: 14px; opacity: 0.95; }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal:not([hidden]) { display: flex; }
+    .modal-content { background: #0f172a; color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; max-width: 520px; width: 100%; padding: 16px; }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 12px; }
+    .modal-actions a, .modal-actions button { padding: 10px 14px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; }
+    .modal-actions .primary { background: #22c55e; color: #0f172a; }
+    .modal-actions .secondary { background: #334155; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">武易专区选择</div>
+      <div class="subtitle">请选择要进入的区服并下载客户端</div>
+    </div>
+    <section class="seo">武易传奇下载站，包含武易复古区与武易六合区，提供2003武易与2005武易版本客户端的电脑端、安卓与苹果下载及安装说明。</section>
+    <div class="zones">
+      <section class="zone" id="zone-fugu">
+        <button class="zone-toggle" aria-expanded="false">武易复古区</button>
+        <div class="zone-content" hidden>
+          <div class="downloads">
+            <a class="btn pc" href="https://wwbdz.lanzoum.com/iyEE93edukne" target="_blank" rel="noopener">电脑端下载</a>
+            <a class="btn android" href="https://www.pgyer.com/wuyizhuanqi" target="_blank" rel="noopener">安卓手机下载</a>
+            <a class="btn ios" href="https://www.pgyer.com/fuguchuanqi-ios-9" target="_blank" rel="noopener">苹果下载</a>
+          </div>
+          
+        </div>
+      </section>
+      <section class="zone" id="zone-liuhe">
+        <button class="zone-toggle" aria-expanded="false">武易六合区</button>
+        <div class="zone-content" hidden>
+          <div class="downloads">
+            <a class="btn pc" href="https://wwrn.lanzoum.com/i22rj32aahzi" target="_blank" rel="noopener">电脑端下载</a>
+            <a class="btn android" id="liuhe-android" href="android_en_name.apk" download target="_blank" rel="noopener">安卓手机下载</a>
+            <a class="btn ios" id="liuhe-ios" href="liuhe.mobileconfig" rel="noopener">苹果下载</a>
+          </div>
+          
+        </div>
+      </section>
+    </div>
+    <div class="footer">若下载失败，请更换浏览器或联系客服</div>
+  </div>
+  <div id="inapp-tip" class="modal" hidden>
+    <div class="modal-content">
+      <div class="label">请在手机浏览器中打开</div>
+      <div>检测到你正在通过应用内打开页面。请复制链接并在系统浏览器中打开（微信、抖音等可点击右上角菜单选择“在浏览器打开”）。</div>
+      <div class="modal-actions">
+        <button id="copy-url" class="primary" type="button">复制当前链接</button>
+        <button id="inapp-tip-close" class="secondary" type="button">我知道了</button>
+      </div>
+    </div>
+  </div>
+  <div id="ios-tip" class="modal" hidden>
+    <div class="modal-content">
+      <div class="label">苹果安装提示</div>
+      <div>下载完成后，请到 设置 → 通用 → VPN与设备管理（或描述文件） 找到下载的描述文件并完成安装。</div>
+      <div class="modal-actions">
+        <a id="ios-start-download" class="primary" href="liuhe.mobileconfig" rel="noopener">继续下载</a>
+        <button id="ios-tip-close" class="secondary" type="button">关闭</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var buttons = document.querySelectorAll('.zone-toggle');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var content = btn.nextElementSibling;
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          if (expanded) {
+            content.setAttribute('hidden', '');
+          } else {
+            content.removeAttribute('hidden');
+          }
+        });
+      });
+      var iosLink = document.getElementById('liuhe-ios');
+      var iosTip = document.getElementById('ios-tip');
+      var iosStart = document.getElementById('ios-start-download');
+      var iosClose = document.getElementById('ios-tip-close');
+      if (iosLink && iosTip) {
+        iosLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          iosTip.removeAttribute('hidden');
+        });
+      }
+      if (iosClose && iosTip) {
+        iosClose.addEventListener('click', function () {
+          iosTip.setAttribute('hidden', '');
+        });
+      }
+      if (iosStart && iosTip) {
+        iosStart.addEventListener('click', function () {
+          iosTip.setAttribute('hidden', '');
+        });
+      }
+      var ua = navigator.userAgent || '';
+      var isWeChat = /MicroMessenger/i.test(ua);
+      var isQQ = /\bQQ\/|MQQBrowser/i.test(ua);
+      var isDouyin = /aweme|Bytedance|Douyin/i.test(ua);
+      var isWeibo = /Weibo/i.test(ua);
+      var isToutiao = /NewsArticle|Toutiao/i.test(ua);
+      var isAlipay = /AlipayClient/i.test(ua);
+      var inApp = isWeChat || isQQ || isDouyin || isWeibo || isToutiao || isAlipay;
+      var inappTip = document.getElementById('inapp-tip');
+      var inappClose = document.getElementById('inapp-tip-close');
+      var copyBtn = document.getElementById('copy-url');
+      if (inApp && inappTip) {
+        inappTip.removeAttribute('hidden');
+        var blockLinks = document.querySelectorAll('.downloads a, .qq-link');
+        blockLinks.forEach(function (a) {
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            inappTip.removeAttribute('hidden');
+          });
+        });
+      }
+      if (inappClose && inappTip) {
+        inappClose.addEventListener('click', function () {
+          inappTip.setAttribute('hidden', '');
+        });
+      }
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          var url = location.href;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url);
+          } else {
+            var t = document.createElement('textarea');
+            t.value = url;
+            t.style.position = 'fixed';
+            t.style.left = '-9999px';
+            document.body.appendChild(t);
+            t.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(t);
+          }
+        });
+      }
+    })();
+  </script>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "武易传奇下载",
+      "inLanguage": "zh-CN",
+      "url": "https://example.com/",
+      "description": "武易传奇下载站，提供武易复古区与武易六合区客户端，支持2003武易与2005武易版本，PC/安卓/iOS下载与安装说明。",
+      "keywords": "武易传奇,武易,2003武易,2005武易,武易复古区,武易六合区",
+      "about": [
+        { "@type": "Thing", "name": "武易传奇" },
+        { "@type": "Thing", "name": "武易" },
+        { "@type": "Thing", "name": "2003武易" },
+        { "@type": "Thing", "name": "2005武易" }
+      ],
+      "isPartOf": { "@type": "WebSite", "name": "武易下载站" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "iOS如何安装描述文件",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "点击苹果下载后，前往 设置 → 通用 → VPN与设备管理（或描述文件），找到下载的描述文件并完成安装。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "安卓如何下载并安装",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "点击安卓下载获取安装包，若系统提示来源未知，请在设置中允许安装来自此来源的应用后继续安装。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "电脑端如何下载",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "点击对应区服的电脑端下载链接获取客户端，解压后按提示运行。"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "武易六合区 安卓客户端",
+      "operatingSystem": "Android",
+      "applicationCategory": "Game",
+      "downloadUrl": "android_en_name.apk"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "武易复古区 PC 客户端",
+      "operatingSystem": "Windows",
+      "applicationCategory": "Game",
+      "downloadUrl": "https://wwrn.lanzoum.com/iuQeu3byan7e"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "武易六合区 PC 客户端",
+      "operatingSystem": "Windows",
+      "applicationCategory": "Game",
+      "downloadUrl": "https://wwrn.lanzoum.com/i22rj32aahzi"
+    }
+  ]
+  </script>
+</body>
+</html>
